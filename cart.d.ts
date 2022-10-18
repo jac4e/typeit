@@ -1,11 +1,13 @@
+import { IProduct } from "./product";
+
 export interface ICartItem {
     id: IProduct['id'];
     name: IProduct['name'];
     description: IProduct['description'];
     image: IProduct['image'];
     price: IProduct['price'];
-    amount: bigint;
-    total: bigint;
+    amount: bigint | string;
+    total: bigint | string;
 }
 
 export interface ICartItemSerialized {
