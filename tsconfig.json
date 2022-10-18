@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "target": "es2020",
+        "module": "es2020",
+        "lib": ["es6"],
+        "declaration": true,
+        "outDir": "./lib",
+        "moduleResolution": "node",
+        "strict": true
+    },
+    "include": ["src/**/*.ts"],
+    "exclude": ["node_modules", "**/__tests__/*"]
+}

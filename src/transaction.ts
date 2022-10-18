@@ -26,7 +26,7 @@ export interface ITransactionForm {
 
 export interface ITransactionItem {
     name: IProduct['name'];
-    description: IProduct['description'];
+    description?: IProduct['description'];
     price: string;
     amount: string;
     total: string;
