@@ -1,4 +1,6 @@
 import { Document } from 'mongoose';
+import { keys } from 'ts-transformer-keys';
+import TSON from 'typescript-json';
 
 export enum Roles {
     Unverified = 'unverified',
@@ -29,17 +31,27 @@ export interface IAccountForm {
 }
 
 export interface IAccount {
+    id: string;
+    gid?: string;
     username: string;
     firstName: string;
     lastName: string;
     email: string;
     role: Roles;
     balance: bigint | string;
-    gid?: string;
-    id: string;
 }
 
 export interface ICredentials {
     username: string;
     password: string;
 }
+
+export function isIAccount(account: any): account is IAccount {
+    return TSON.equals<IAccount>(account);   
+}
+
+export function isICredentials(credentials: any): credentials is ICredentials {
+    return TSON.equals<IAccount>(credentials);   
+}
+
+export const keysIAccount = keys<IAccount>();

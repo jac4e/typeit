@@ -1,4 +1,6 @@
 import { Document } from "mongoose";
+import { keys } from "ts-transformer-keys";
+import TSON from 'typescript-json';
 
 export interface IProduct {
   id: string;
@@ -24,3 +26,9 @@ export interface IProductDocument extends Document {
   price: string;
   stock: string;
 }
+
+export function isIProduct(product: any): product is IProduct {
+  return TSON.equals<IProduct>(product);   
+}
+
+export const keysIProduct = keys<IProduct>();

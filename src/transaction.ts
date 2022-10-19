@@ -1,5 +1,7 @@
 import { IProduct } from './product';
 import { Document } from 'mongoose';
+import TSON from 'typescript-json';
+import { keys } from 'ts-transformer-keys';
 
 export enum TransactionType {
     Debit = 'debit',
@@ -7,8 +9,8 @@ export enum TransactionType {
 }
 
 export interface ITransaction {
+    date: Date | string;
     id: string;
-    date: Date;
     accountid: string;
     type: TransactionType;
     reason: string;
@@ -32,6 +34,7 @@ export interface ITransactionItem {
     total: string;
 }
 
+
 export interface ITransactionDocument extends Document {
     date: ITransaction['date'];
     accountid: ITransaction['accountid'];
@@ -40,3 +43,9 @@ export interface ITransactionDocument extends Document {
     products: ITransaction['products'];
     total: ITransaction['total'];
 }
+
+export function isITransaction(transaction: any): transaction is ITransaction {
+    return TSON.equals<ITransaction>(transaction);
+}
+
+export const keysITransaction = keys<ITransaction>();

@@ -1,4 +1,5 @@
 import { IProduct } from "./product";
+import TSON from 'typescript-json';
 
 export interface ICartItem {
     id: IProduct['id'];
@@ -13,4 +14,8 @@ export interface ICartItem {
 export interface ICartItemSerialized {
     id: IProduct['id'];
     amount: string;
+}
+
+export function isICartItem(cartItem: any): cartItem is ICartItem {
+    return TSON.equals<ICartItem>(cartItem);
 }

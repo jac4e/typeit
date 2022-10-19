@@ -6,16 +6,22 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "npx tsc",
+    "build": "npx ttsc",
     "prepare": "npm run build"
   },
   "author": "",
   "license": "MIT",
-  "devDependencies": {
+  "dependencies": {
     "mongoose": "^6.6.5",
-    "typescript": "^4.8.4"
+    "ts-transformer-keys": "^0.4.3",
+    "typescript-json": "^3.3.12"
   },
   "files": [
     "lib/**/*"
-  ]
+  ],
+  "devDependencies": {
+    "ts-node": "^10.9.1",
+    "ttypescript": "^1.5.13",
+    "typescript": "^4.8.4"
+  }
 }
