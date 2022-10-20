@@ -30,5 +30,8 @@ export interface IProductDocument extends Document {
 export function isIProduct(product: any): product is IProduct {
   return TSON.equals<IProduct>(product);   
 }
+export function isIProductForm(product: any): product is IProductForm {
+  return TSON.equals<IProductForm>(product);   
+}
 
 export const keysIProduct = keys<IProduct>();
