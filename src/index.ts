@@ -10,16 +10,19 @@ export * from './product.js';
 export * from './transaction.js';
 
 
+type UnionKeys<Type> = Type extends Type ? keyof Type: never
+type UnionValues<Type> = Type extends Type ? Type[keyof Type]: never
+
 // Useful functions to ensure order of keys/values for interfaces match their interface definition
 
 // Returns an array of the objects keys
 export function getKeys<Type>(obj: Type) {
     if (isIAccount(obj)) {
-        return keysIAccount as (keyof Type)[];
+        return keysIAccount as (UnionKeys<Type>)[];
     } else if (isITransaction(obj)) {
-        return keysITransaction as (keyof Type)[];
+        return keysITransaction as (UnionKeys<Type>)[];
     } else if (isIProduct(obj)) {
-        return keysIProduct as (keyof Type)[];
+        return keysIProduct as (UnionKeys<Type>)[];
     } else {
         return [];
     }
@@ -37,7 +40,7 @@ export function getValues<Type>(obj: Type) {
             obj.email,
             obj.role,
             obj.balance
-        ] as (Type[keyof Type])[];
+        ] as (UnionValues<Type>)[];
     } else if (isITransaction(obj)) {
         return [
             obj.date,
@@ -47,7 +50,7 @@ export function getValues<Type>(obj: Type) {
             obj.reason,
             JSON.stringify(obj.products),
             obj.total
-        ] as (Type[keyof Type])[];
+        ] as (UnionValues<Type>)[];
     } else if (isIProduct(obj)) {
         return [
             obj.id,
@@ -56,7 +59,7 @@ export function getValues<Type>(obj: Type) {
             obj.image,
             obj.price,
             obj.stock
-        ] as (Type[keyof Type])[];
+        ] as (UnionValues<Type>)[];
     } else {
         return [];
     }
