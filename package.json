@@ -1,6 +1,6 @@
 {
-  "name": "typeit",
-  "version": "0.0.1",
+  "name": "typesit",
+  "version": "0.0.2",
   "type": "module",
   "description": "Types for spendit and serveit",
   "main": "lib/index.js",
