@@ -21,12 +21,12 @@ export interface IAccountDocument extends Document {
 }
 
 export interface IAccountForm {
-    username: IAccount['username'];
-    firstName: IAccount['firstName'];
-    lastName: IAccount['lastName'];
-    email: IAccount['email'];
-    role: IAccount['role'];
-    password: string;
+    username?: IAccount['username'];
+    firstName?: IAccount['firstName'];
+    lastName?: IAccount['lastName'];
+    email?: IAccount['email'];
+    role?: IAccount['role'];
+    password?: string;
     gid?: IAccount['gid'];
 }
 
@@ -50,8 +50,12 @@ export function isIAccount(account: any): account is IAccount {
     return TSON.equals<IAccount>(account);   
 }
 
+export function isIAccountForm(account: any): account is IAccountForm {
+    return TSON.equals<IAccountForm>(account);   
+}
+
 export function isICredentials(credentials: any): credentials is ICredentials {
-    return TSON.equals<IAccount>(credentials);   
+    return TSON.equals<ICredentials>(credentials);   
 }
 
 export const keysIAccount = keys<IAccount>();
