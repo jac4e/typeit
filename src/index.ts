@@ -10,8 +10,8 @@ export * from './product.js';
 export * from './transaction.js';
 
 
-type UnionKeys<Type> = Type extends Type ? keyof Type: never
-type UnionValues<Type> = Type extends Type ? Type[keyof Type]: never
+export type UnionKeys<Type> = Type extends Type ? keyof Type: never
+export type UnionValues<Type> = Type extends Type ? Type[keyof Type]: never
 
 // Useful functions to ensure order of keys/values for interfaces match their interface definition
 
@@ -48,7 +48,7 @@ export function getValues<Type>(obj: Type) {
             obj.accountid,
             obj.type,
             obj.reason,
-            JSON.stringify(obj.products),
+            obj.products,
             obj.total
         ] as (UnionValues<Type>)[];
     } else if (isIProduct(obj)) {
