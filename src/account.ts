@@ -3,9 +3,10 @@ import { keys } from 'ts-transformer-keys';
 import TSON from 'typescript-json';
 
 export enum Roles {
-    Unverified = 'unverified',
-    User = 'user',
-    Admin = 'admin'
+    Unverified = 'unverified', // Unverified account created through registration form
+    Member = 'member', // Verified club member account
+    NonMember = 'nonmember', // Verified club member account
+    Admin = 'admin' // Admin account
 }
 
 export interface IAccountDocument extends Document {
