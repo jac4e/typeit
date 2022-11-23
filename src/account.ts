@@ -19,6 +19,7 @@ export interface IAccountDocument extends Document {
     gid?: IAccount['gid'];
     hash: string;
     sessionid: string;
+    notify: IAccount['notify'];
 }
 
 export interface IAccountForm {
@@ -29,6 +30,7 @@ export interface IAccountForm {
     role?: IAccount['role'];
     password?: string;
     gid?: IAccount['gid'];
+    notify?: IAccount['notify'];
 }
 
 export interface IAccount {
@@ -40,6 +42,7 @@ export interface IAccount {
     email: string;
     role: Roles;
     balance: bigint | string;
+    notify: boolean;
 }
 
 export interface ICredentials {
