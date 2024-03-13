@@ -1,6 +1,6 @@
 import { Document } from 'mongoose';
 import { keys } from 'ts-transformer-keys';
-import TSON from 'typescript-json';
+import typia, { tags } from "typia";
 
 export enum Roles {
     Unverified = 'unverified', // Unverified account created through registration form
@@ -50,16 +50,10 @@ export interface ICredentials {
     password: string;
 }
 
-export function isIAccount(account: any): account is IAccount {
-    return TSON.equals<IAccount>(account);   
-}
+export const isIAccount = typia.createEquals<IAccount>();
 
-export function isIAccountForm(account: any): account is IAccountForm {
-    return TSON.equals<IAccountForm>(account);   
-}
+export const isIAccountForm = typia.createEquals<IAccountForm>();
 
-export function isICredentials(credentials: any): credentials is ICredentials {
-    return TSON.equals<ICredentials>(credentials);   
-}
+export const isICredentials = typia.createEquals<ICredentials>();
 
 export const keysIAccount = keys<IAccount>();

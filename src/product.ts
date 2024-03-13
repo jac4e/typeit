@@ -1,6 +1,6 @@
 import { Document } from "mongoose";
 import { keys } from "ts-transformer-keys";
-import TSON from 'typescript-json';
+import typia, { tags } from "typia";
 
 export interface IProduct {
   id: string;
@@ -27,11 +27,7 @@ export interface IProductDocument extends Document {
   stock: string;
 }
 
-export function isIProduct(product: any): product is IProduct {
-  return TSON.equals<IProduct>(product);   
-}
-export function isIProductForm(product: any): product is IProductForm {
-  return TSON.equals<IProductForm>(product);   
-}
+export const isIProduct = typia.createEquals<IProduct>();
+export const isIProductForm = typia.createEquals<IProductForm>();
 
 export const keysIProduct = keys<IProduct>();
