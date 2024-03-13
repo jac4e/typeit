@@ -1,6 +1,6 @@
 import { IProduct } from './product';
 import { Document } from 'mongoose';
-import TSON from 'typescript-json';
+import typia, { tags } from "typia";
 import { keys } from 'ts-transformer-keys';
 import { ICartItem } from './cart';
 
@@ -44,11 +44,7 @@ export interface ITransactionDocument extends Document {
     total: string;
 }
 
-export function isITransaction(transaction: any): transaction is ITransaction {
-    return TSON.equals<ITransaction>(transaction);
-}
-export function isITransactionForm(transaction: any): transaction is ITransactionForm {
-    return TSON.equals<ITransactionForm>(transaction);
-}
+export const isITransaction = typia.createEquals<ITransaction>();
+export const isITransactionForm = typia.createEquals<ITransactionForm>();
 
 export const keysITransaction = keys<ITransaction>();

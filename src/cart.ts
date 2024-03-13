@@ -1,5 +1,5 @@
 import { IProduct } from "./product";
-import TSON from 'typescript-json';
+import typia, { tags } from "typia";
 
 export interface ICartItem {
     id: IProduct['id'];
@@ -19,14 +19,8 @@ export interface ICartItemSerialized {
     amount: string;
 }
 
-export function isICartItem(cartItem: any): cartItem is ICartItem {
-    return TSON.equals<ICartItem>(cartItem);
-}
+export const isICartItem = typia.createEquals<ICartItem>();
 
-export function isICart(cart: any): cart is ICart {
-    return TSON.equals<ICart>(cart);
-}
+export const isICart = typia.createEquals<ICart>();
 
-export function isICartSerialized(cart: any): cart is ICartSerialized {
-    return TSON.equals<ICartSerialized>(cart);
-}
+export const isICartSerialized = typia.createEquals<ICartSerialized>();
