@@ -78,6 +78,11 @@ export function getObject<Type>(item: Type): {key: keyof Type; value: Type[keyof
 }
 
 // Hijack bigint for json serialization because the spec writers hate me
-(BigInt.prototype as any).toJSON = function () {
-    return this.toString();
-};
+// Had to update using method found here https://github.com/GoogleChromeLabs/jsbi/issues/30#issuecomment-1721402063
+// as previous method (BigInt.prototype.toJSON = function() { return this.toString(); }) was not working anymore
+Object.defineProperty(BigInt.prototype, "toJSON", {
+    get() {
+        "use strict";
+        return () => String(this);
+    }
+});
