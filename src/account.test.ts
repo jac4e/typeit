@@ -15,7 +15,7 @@ describe('isIAccount', () => {
     expect(isIAccount(account)).toBe(true);
   });
 
-  it('should return false for an invalid IAccount object', () => {
+  it('should return false for an incorrect IAccount property', () => {
     const account = {
       id: '123',
       username: 'johndoe',
@@ -25,6 +25,34 @@ describe('isIAccount', () => {
       role: 'invalid_role',
       balance: 1000n,
       notify: true,
+    };
+    expect(isIAccount(account)).toBe(false);
+  });
+
+  it('should return false when containing an extra property', () => {
+    const account = {
+      id: '123',
+      username: 'johndoe',
+      firstName: 'John',
+      lastName: 'Doe',
+      email: 'johndoe@example.com',
+      role: 'member',
+      balance: 1000n,
+      notify: true,
+      extra: 'property',
+    };
+    expect(isIAccount(account)).toBe(false);
+  });
+
+  it('should return false when missing a required property', () => {
+    const account = {
+      id: '123',
+      username: 'johndoe',
+      firstName: 'John',
+      lastName: 'Doe',
+      email: 'johndoe@example.com',
+      role: 'member',
+      balance: 1000n,
     };
     expect(isIAccount(account)).toBe(false);
   });

@@ -9,29 +9,12 @@ export enum Roles {
     Admin = 'admin' // Admin account
 }
 
-export interface IAccountDocument extends Document {
-    username: IAccount['username'];
-    firstName: IAccount['firstName'];
-    lastName: IAccount['lastName'];
-    email: IAccount['email'];
-    role: IAccount['role'];
-    balance: bigint;
-    gid?: IAccount['gid'];
+export type IAccountDocument = Omit<IAccount, 'id'> & {
     hash: string;
     sessionid: string;
-    notify: IAccount['notify'];
-}
+};
 
-export interface IAccountForm {
-    username?: IAccount['username'];
-    firstName?: IAccount['firstName'];
-    lastName?: IAccount['lastName'];
-    email?: IAccount['email'];
-    role?: IAccount['role'];
-    password?: string;
-    gid?: IAccount['gid'];
-    notify?: IAccount['notify'];
-}
+export type IAccountForm = Omit<IAccount, 'id'>;
 
 export interface IAccount {
     id: string;
