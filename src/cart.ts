@@ -1,12 +1,7 @@
 import { IProduct } from "./product";
 import typia, { tags } from "typia";
 
-export interface ICartItem {
-    id: IProduct['id'];
-    name: IProduct['name'];
-    description?: IProduct['description'];
-    image?: IProduct['image'];
-    price: IProduct['price'];
+export interface ICartItem extends IProduct {
     amount: bigint | string;
     total: bigint | string;
 }
