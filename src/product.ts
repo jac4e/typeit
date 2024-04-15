@@ -222,3 +222,5 @@ export function isIProductDocument<T extends ProductTypes | AnyProductDocument =
 }
 
 export const keysIProduct = keys<IProduct>();
+export const keysIProductStock = [...keys<ProductBase>(), ProductTypes.Stock] as (keyof IProduct<ProductTypes.Stock>)[];
+export const keysIProductOrder = [...keys<ProductBase>(), ProductTypes.Order] as (keyof IProduct<ProductTypes.Order>)[];

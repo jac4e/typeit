@@ -1,13 +1,17 @@
 import { keys } from 'ts-transformer-keys';
-import { IAccount, isIAccount, keysIAccount } from './account.js';
-import { IProduct, isIProduct, keysIProduct } from './product.js';
-import { isITransaction, ITransaction, keysITransaction } from './transaction.js';
+import { IAccount, isIAccount, keysIAccount } from './account';
+import { IProduct, ProductTypes, isIProduct, keysIProduct, keysIProductOrder, keysIProductStock } from './product';
+import { isITransaction, ITransaction, keysITransaction } from './transaction';
+import { IPreOrder, isIPreOrder, keysIPreOrder } from './preorders';
+import { IStockEntry, isIStockEntry, keysIStockEntry } from './stock';
 
-export * from './account.js';
-export * from './cart.js';
-export * from './log.js';
-export * from './product.js';
-export * from './transaction.js';
+export * from './account';
+export * from './cart';
+export * from './log';
+export * from './product';
+export * from './preorders';
+export * from './stock';
+export * from './transaction';
 
 
 export type UnionKeys<Type> = Type extends Type ? keyof Type: never
@@ -15,21 +19,31 @@ export type UnionValues<Type> = Type extends Type ? Type[keyof Type]: never
 
 // Useful functions to ensure order of keys/values for interfaces match their interface definition
 
+type AvailableTypes = IAccount | ITransaction | IProduct | IProduct<ProductTypes.Stock> | IProduct<ProductTypes.Order> | IPreOrder | IStockEntry;
+
 // Returns an array of the objects keys
-export function getKeys<Type>(obj: Type) {
+export function getKeys<Type extends AvailableTypes>(obj: Type) {
     if (isIAccount(obj)) {
         return keysIAccount as (UnionKeys<Type>)[];
     } else if (isITransaction(obj)) {
         return keysITransaction as (UnionKeys<Type>)[];
+    } else if (isIProduct(obj, ProductTypes.Order)) {
+        return keysIProductOrder as (UnionKeys<Type>)[];
+    } else if (isIProduct(obj, ProductTypes.Stock)) {
+        return keysIProductStock as (UnionKeys<Type>)[];
     } else if (isIProduct(obj)) {
-        return keysIProduct as (UnionKeys<Type>)[];
+        return keysIProduct as (UnionKeys<Type>)[];  
+    } else if (isIPreOrder(obj)) {
+        return keysIPreOrder as (UnionKeys<Type>)[];
+    } else if (isIStockEntry(obj)) {
+        return keysIStockEntry as (UnionKeys<Type>)[];
     } else {
         return [];
     }
 }
 
 // returns an array of the objects values
-export function getValues<Type>(obj: Type) {
+export function getValues<Type extends AvailableTypes>(obj: Type) {
     if (isIAccount(obj)) {
         return [
             obj.id,
@@ -39,7 +53,8 @@ export function getValues<Type>(obj: Type) {
             obj.lastName,
             obj.email,
             obj.role,
-            obj.balance
+            obj.balance,
+            obj.notify
         ] as (UnionValues<Type>)[];
     } else if (isITransaction(obj)) {
         return [
@@ -54,18 +69,37 @@ export function getValues<Type>(obj: Type) {
     } else if (isIProduct(obj)) {
         return [
             obj.id,
+            obj.category,
             obj.name,
             obj.description,
             obj.image,
             obj.price,
-            obj.stock
+            obj.type,
+            obj.order ? obj.order : (obj.stock ? obj.stock : undefined)
+        ] as (UnionValues<Type>)[];
+    } else if (isIPreOrder(obj)) {
+        return [
+            obj.id,
+            obj.accountId,
+            obj.amount,
+            obj.status,
+        ] as (UnionValues<Type>)[];
+    } else if (isIStockEntry(obj)) {
+        return [
+            obj.id,
+            obj.date,
+            obj.productid,
+            obj.cost,
+            obj.type,
+            obj.delta,
+            obj.notes,
         ] as (UnionValues<Type>)[];
     } else {
         return [];
     }
 }
 
-export function getObject<Type>(item: Type): {key: keyof Type; value: Type[keyof Type]}[] {
+export function getObject<Type extends AvailableTypes>(item: Type): {key: keyof Type; value: Type[keyof Type]}[] {
     const returnArray = [] as {key: keyof Type; value: Type[keyof Type]}[];
     const keys = getKeys(item);
     const values = getValues(item);
