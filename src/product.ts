@@ -122,26 +122,26 @@ export function isIProduct<T extends ProductTypes | AnyProduct = AnyProduct>(pro
     // Although AnyProduct has all typed properties as optional, to be functionally correct, it should have only one typed property
 
     // Check if only one typed property is present
-    const hasOneTypedProperty =  keys<AnyProduct>().filter(key => keys<TypedProperties>().includes(key as keyof TypedProperties)).length === 1;
-
+    const hasOneTypedProperty = Object.keys(product).filter(key => keys<TypedProperties>().includes(key as keyof TypedProperties)).length === 1;
     if (!hasOneTypedProperty) return false;
 
     // Check that the typed property key is valid
-    const typedPropertyKey = keys<AnyProduct>().find(key => keys<TypedProperties>().includes(key as keyof TypedProperties)) as keyof TypedProperties;
-
+    const typedPropertyKey = Object.keys(product).find(key => keys<TypedProperties>().includes(key as keyof TypedProperties)) as keyof TypedProperties;
     // check if the typed property matches the products specified type
     const productTypeMatches = product.type === typedPropertyKey;
 
     if (!productTypeMatches) return false;
 
     // Do not use T or type here, as this logic is for verifying AnyProduct, not IProduct<T extends ProductTypes>
-    const isTypedPropertyCorrect = typia.is<TypedProperties[keyof TypedProperties]>(product[typedPropertyKey]);
+    const isTypedPropertyCorrect = typia.equals<TypedProperties[keyof TypedProperties]>(product[typedPropertyKey]);
 
     // Return the results of isTypedPropertyCorrect if type is not specified (aka testing for any product)
     return isTypedPropertyCorrect;
   }
 
-  return typia.is<IProduct<T>>(product);
+  if (type === ProductTypes.Order) return typia.equals<IProduct<ProductTypes.Order>>(product);
+  if (type === ProductTypes.Stock) return typia.equals<IProduct<ProductTypes.Stock>>(product);
+  return false;
 }
 
 // IProductForm type guard
@@ -158,12 +158,12 @@ export function isIProductForm<T extends ProductTypes | AnyProductForm = AnyProd
     // Although AnyProduct has all typed properties as optional, to be functionally correct, it should have only one typed property
 
     // Check if only one typed property is present
-    const hasOneTypedProperty =  keys<AnyProductForm>().filter(key => keys<TypedPropertiesForm>().includes(key as keyof TypedPropertiesForm)).length === 1;
+    const hasOneTypedProperty =  Object.keys(product).filter(key => keys<TypedPropertiesForm>().includes(key as keyof TypedPropertiesForm)).length === 1;
 
     if (!hasOneTypedProperty) return false;
 
     // Check that the typed property key is valid
-    const typedPropertyKey = keys<AnyProductForm>().find(key => keys<TypedPropertiesForm>().includes(key as keyof TypedPropertiesForm)) as keyof TypedPropertiesForm;
+    const typedPropertyKey = Object.keys(product).find(key => keys<TypedPropertiesForm>().includes(key as keyof TypedPropertiesForm)) as keyof TypedPropertiesForm;
 
     // check if the typed property matches the products specified type
     const productTypeMatches = product.type === typedPropertyKey;
@@ -171,15 +171,18 @@ export function isIProductForm<T extends ProductTypes | AnyProductForm = AnyProd
     if (!productTypeMatches) return false;
 
     // Do not use T or type here, as this logic is for verifying AnyProduct, not IProduct<T extends ProductTypes>
-    const isTypedPropertyCorrect = typia.is<TypedPropertiesForm[keyof TypedPropertiesForm]>(product[typedPropertyKey]);
+    const isTypedPropertyCorrect = typia.equals<TypedPropertiesForm[keyof TypedPropertiesForm]>(product[typedPropertyKey]);
 
     // Return the results of isTypedPropertyCorrect if type is not specified (aka testing for any product)
     return isTypedPropertyCorrect;
   }
 
-  return typia.is<IProductForm<T>>(product);
+  if (type === ProductTypes.Order) return typia.equals<IProductForm<ProductTypes.Order>>(product);
+  if (type === ProductTypes.Stock) return typia.equals<IProductForm<ProductTypes.Stock>>(product);
+  return false;
 }
 
+// Cannot test this as it is not possible to create a document without a schema and model, which live in the backend codebase
 // IProductDocument type guard
 export function isIProductDocument<T extends AnyProductDocument = AnyProductDocument>(product: any): product is IProductDocument<AnyProductDocument>;
 export function isIProductDocument<T extends ProductTypes>(product: any, type: T): product is IProductDocument<T>;
@@ -194,12 +197,12 @@ export function isIProductDocument<T extends ProductTypes | AnyProductDocument =
     // Although AnyProduct has all typed properties as optional, to be functionally correct, it should have only one typed property
 
     // Check if only one typed property is present
-    const hasOneTypedProperty =  keys<AnyProductDocument>().filter(key => keys<TypedPropertiesDocument>().includes(key as keyof TypedPropertiesDocument)).length === 1;
+    const hasOneTypedProperty = Object.keys(product).filter(key => keys<TypedPropertiesDocument>().includes(key as keyof TypedPropertiesDocument)).length === 1;
 
     if (!hasOneTypedProperty) return false;
 
     // Check that the typed property key is valid
-    const typedPropertyKey = keys<AnyProductDocument>().find(key => keys<TypedPropertiesDocument>().includes(key as keyof TypedPropertiesDocument)) as keyof TypedPropertiesDocument;
+    const typedPropertyKey = Object.keys(product).find(key => keys<TypedPropertiesDocument>().includes(key as keyof TypedPropertiesDocument)) as keyof TypedPropertiesDocument;
 
     // check if the typed property matches the products specified type
     const productTypeMatches = product.type === typedPropertyKey;
@@ -207,13 +210,15 @@ export function isIProductDocument<T extends ProductTypes | AnyProductDocument =
     if (!productTypeMatches) return false;
 
     // Do not use T or type here, as this logic is for verifying AnyProduct, not IProduct<T extends ProductTypes>
-    const isTypedPropertyCorrect = typia.is<TypedPropertiesDocument[keyof TypedPropertiesDocument]>(product[typedPropertyKey]);
+    const isTypedPropertyCorrect = typia.equals<TypedPropertiesDocument[keyof TypedPropertiesDocument]>(product[typedPropertyKey]);
 
     // Return the results of isTypedPropertyCorrect if type is not specified (aka testing for any product)
     return isTypedPropertyCorrect;
   }
 
-  return typia.is<IProductDocument<T>>(product);
+  if (type === ProductTypes.Order) return typia.equals<IProductDocument<ProductTypes.Order>>(product);
+  if (type === ProductTypes.Stock) return typia.equals<IProductDocument<ProductTypes.Stock>>(product);
+  return false;
 }
 
 export const keysIProduct = keys<IProduct>();
