@@ -6,16 +6,14 @@ export interface ICartItem extends IProduct {
     total: bigint | string;
 }
 
-export type ICart = ICartItem[];
-export type ICartSerialized = ICartItemSerialized[];
-
 export interface ICartItemSerialized {
     id: IProduct['id'];
     amount: string;
 }
 
+export type ICart = ICartItem[];
+export type ICartSerialized = ICartItemSerialized[];
+
 export const isICartItem = typia.createEquals<ICartItem>();
-
 export const isICart = typia.createEquals<ICart>();
-
 export const isICartSerialized = typia.createEquals<ICartSerialized>();

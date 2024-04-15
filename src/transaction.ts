@@ -1,4 +1,3 @@
-import { IProduct } from './product';
 import { Document } from 'mongoose';
 import typia, { tags } from "typia";
 import { keys } from 'ts-transformer-keys';
