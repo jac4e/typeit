@@ -4,6 +4,8 @@ import { IPreOrder, IPreOrderForm, IPreOrderDocument, isIPreOrder, isIPreOrderFo
 describe('isIPreOrder', () => {
     it('should return true for a valid IPreOrder object', () => {
         const preOrder = {
+        date: new Date(),
+        lastUpdated: new Date(),
         id: '123',
         accountId: '123',
         amount: 100n,
@@ -13,6 +15,8 @@ describe('isIPreOrder', () => {
     });
     it('should return false for an incorrect IPreOrder property', () => {
         const preOrder = {
+        date: new Date(),
+        lastUpdated: new Date(),
         id: '123',
         accountId: '123',
         amount: 100n,
@@ -22,6 +26,8 @@ describe('isIPreOrder', () => {
     });
     it('should return false when containing an extra property', () => {
         const preOrder = {
+        date: new Date(),
+        lastUpdated: new Date(),
         id: '123',
         accountId: '123',
         amount: 100n,

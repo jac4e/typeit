@@ -16,13 +16,15 @@ export enum PreOrderStatus {
 }
 
 export interface IPreOrder {
+    date: Date | string;
+    lastUpdated: Date | string;
     id: string;
     accountId: IAccount['id'];
     amount: bigint | string;
     status: PreOrderStatus;
 }
 
-export type IPreOrderForm = Omit<IPreOrder, 'id'>;
+export type IPreOrderForm = Omit<IPreOrder, 'id' | 'date' | 'lastUpdated'>;
 
 export type IPreOrderDocument = Omit<IPreOrder, 'id'>;
 
