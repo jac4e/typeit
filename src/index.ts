@@ -5,24 +5,32 @@ import { isITransaction, ITransaction, keysITransaction } from './transaction';
 import { IPreOrder, isIPreOrder, keysIPreOrder } from './preorders';
 import { IStockEntry, isIStockEntry, keysIStockEntry } from './stock';
 
-export * from './account';
-export * from './cart';
-export * from './log';
-export * from './product';
-export * from './preorders';
-export * from './stock';
-export * from './transaction';
+// export * from './account';
+export { IAccount, ICredentials, IAccountDocument, IAccountForm, Roles, isIAccount, isIAccountForm, isICredentials } from './account';
+// export * from './cart';
+export { ICartItem, ICartItemSerialized, ICart, ICartSerialized, isICartItem, isICart, isICartSerialized } from './cart';
+// export * from './log';
+// export * from './product';
+export { IProduct, ProductCategories, ProductTypes, isIProduct } from './product';
+// export * from './preorders';
+export { IPreOrder, PreOrderStatus, isIPreOrder } from './preorders';
+// export * from './stock';
+export { IStockEntry, StockEntryType, isIStockEntry } from './stock';
+// export * from './transaction';
+export { ITransaction, TransactionType, ITransactionForm, ITransactionItem, ITransactionDocument, isITransaction, isITransactionForm } from './transaction';
 
-
-export type UnionKeys<Type> = Type extends Type ? keyof Type: never
-export type UnionValues<Type> = Type extends Type ? Type[keyof Type]: never
-
-// Useful functions to ensure order of keys/values for interfaces match their interface definition
 
 type AvailableTypes = IAccount | ITransaction | IProduct | IProduct<ProductTypes.Stock> | IProduct<ProductTypes.Order> | IPreOrder | IStockEntry;
 
+export type UnionKeys<Type> = Type extends Type ? keyof Type: never;
+export type UnionValues<Type> = Type extends Type ? Type[keyof Type]: never;
+export type UnionKeysValues<Type> = Type extends Type ? {key: UnionKeys<Type>, value: UnionValues<Type>}: never;
+
+// Useful functions to ensure order of keys/values for interfaces match their interface definition
+
+
 // Returns an array of the objects keys
-export function getKeys<Type extends AvailableTypes>(obj: Type) {
+export function getKeys<Type>(obj: Type) {
     if (isIAccount(obj)) {
         return keysIAccount as (UnionKeys<Type>)[];
     } else if (isITransaction(obj)) {
@@ -43,7 +51,7 @@ export function getKeys<Type extends AvailableTypes>(obj: Type) {
 }
 
 // returns an array of the objects values
-export function getValues<Type extends AvailableTypes>(obj: Type) {
+export function getValues<Type>(obj: Type) {
     if (isIAccount(obj)) {
         return [
             obj.id,
@@ -79,6 +87,8 @@ export function getValues<Type extends AvailableTypes>(obj: Type) {
         ] as (UnionValues<Type>)[];
     } else if (isIPreOrder(obj)) {
         return [
+            obj.date,
+            obj.lastUpdated,
             obj.id,
             obj.accountId,
             obj.amount,
