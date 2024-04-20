@@ -8,6 +8,14 @@ export enum TransactionType {
     Credit = 'credit'
 }
 
+export interface ITransactionItem {
+    name: ICartItem['name'];
+    description?: ICartItem['description'];
+    price: string;
+    amount: string;
+    total: string;
+}
+
 export interface ITransaction {
     date: Date | string;
     id: string;
@@ -18,30 +26,13 @@ export interface ITransaction {
     total: bigint | string;
 }
 
-export interface ITransactionForm {
-    accountid: ITransaction['accountid'];
-    type: ITransaction['type'];
-    reason: ITransaction['reason'];
-    products: ITransaction['products'];
+export type ITransactionForm = Omit<ITransaction, 'id' | 'date' | 'total'> & {
     total: string;
-}
+};
 
-export interface ITransactionItem {
-    name: ICartItem['name'];
-    description?: ICartItem['description'];
-    price: string;
-    amount: string;
+export type ITransactionDocument = Omit<ITransaction, 'id' | 'total'> & {
     total: string;
-}
-
-export interface ITransactionDocument extends Document {
-    date: ITransaction['date'];
-    accountid: ITransaction['accountid'];
-    type: ITransaction['type'];
-    reason: ITransaction['reason'];
-    products: ITransaction['products'];
-    total: string;
-}
+};
 
 export const isITransaction = typia.createEquals<ITransaction>();
 export const isITransactionForm = typia.createEquals<ITransactionForm>();
