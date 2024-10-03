@@ -2,6 +2,7 @@ import { keys } from 'ts-transformer-keys';
 import { IAccount, isIAccount, keysIAccount } from './account.js';
 import { IProduct, isIProduct, keysIProduct } from './product.js';
 import { isITransaction, ITransaction, keysITransaction } from './transaction.js';
+import { isIRefill, keysIRefill } from './refill.js';
 
 export * from './account.js';
 export * from './cart.js';
@@ -24,6 +25,8 @@ export function getKeys<Type>(obj: Type) {
         return keysITransaction as (UnionKeys<Type>)[];
     } else if (isIProduct(obj)) {
         return keysIProduct as (UnionKeys<Type>)[];
+    } else if (isIRefill(obj)) {
+        return keysIRefill as (UnionKeys<Type>)[];
     } else {
         return [];
     }
@@ -60,6 +63,16 @@ export function getValues<Type>(obj: Type) {
             obj.image,
             obj.price,
             obj.stock
+        ] as (UnionValues<Type>)[];
+    } else if (isIRefill(obj)) {
+        return [
+            obj.id,
+            obj.account,
+            obj.method,
+            obj.amount,
+            obj.date,
+            obj.status,
+            obj.note
         ] as (UnionValues<Type>)[];
     } else {
         return [];
