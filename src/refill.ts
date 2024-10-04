@@ -12,7 +12,8 @@ export enum RefillMethods {
 export enum RefillStatus {
   Pending = "pending",
   Complete = "complete",
-  Failed = "failed"
+  Failed = "failed",
+  Cancelled = "cancelled"
 }
 
 export interface IRefill {
@@ -20,7 +21,7 @@ export interface IRefill {
   account: string;
   method: RefillMethods;
   amount: bigint | string;
-  date: Date;
+  date: Date | string;
   status: RefillStatus;
   note?: string;
 }
