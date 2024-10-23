@@ -27,6 +27,12 @@ export interface IRefill {
   note?: string;
 }
 
+export interface IRefillForm {
+  account: IRefill['account'];
+  method: IRefill['method'];
+  amount: IRefill['amount'];
+}
+
 export interface IRefillDocument extends Document {
   account: IRefill['account'];
   method: IRefill['method'];
@@ -38,5 +44,7 @@ export interface IRefillDocument extends Document {
 }
 
 export const isIRefill = typia.createEquals<IRefill>();
+export const isIRefillForm = typia.createEquals<IRefillForm>();
 
 export const keysIRefill = keys<IRefill>();
+export const keysIRefillForm = keys<IRefillForm>();
