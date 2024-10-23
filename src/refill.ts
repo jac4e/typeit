@@ -21,7 +21,8 @@ export interface IRefill {
   account: string;
   method: RefillMethods;
   amount: bigint | string;
-  date: Date | string;
+  date_created: Date | string;
+  date_updated: Date | string;
   status: RefillStatus;
   note?: string;
 }
@@ -30,7 +31,8 @@ export interface IRefillDocument extends Document {
   account: IRefill['account'];
   method: IRefill['method'];
   amount: IRefill['amount'];
-  date: IRefill['date'];
+  date_created: IRefill['date_created'];
+  date_updated: IRefill['date_updated'];
   status: IRefill['status'];
   note: IRefill['note'];
 }
