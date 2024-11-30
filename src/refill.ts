@@ -28,24 +28,7 @@ export interface IRefill {
   note?: string;
 }
 
-// export interface EtransferRefill extends RefillBase {
-//   method: RefillMethods.Etransfer;
-// }
-
-// export interface CashRefill extends RefillBase {
-//   method: RefillMethods.Cash;
-// }
-
-// export interface CardRefill extends RefillBase {
-//   method: RefillMethods.Card;
-// }
-
-// export interface StripeRefill extends RefillBase {
-//   method: RefillMethods.Stripe;
-// }
-
-// export type IRefill = EtransferRefill | CashRefill | CardRefill | StripeRefill;
-export type IRefillDocumentNew = Document & IRefill;
+export type IRefillDocument = Document & IRefill;
 
 export interface IRefillForm {
   account: IRefill['account'];
