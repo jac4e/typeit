@@ -16,31 +16,41 @@ export enum RefillStatus {
   Cancelled = "cancelled"
 }
 
-export interface IRefill {
+export interface RefillBase {
   id: string;
   account: string;
-  method: RefillMethods;
   amount: bigint | string;
-  date_created: Date | string;
-  date_updated: Date | string;
+  dateCreated: Date | string;
+  dateUpdated: Date | string;
   status: RefillStatus;
   note?: string;
+  reference: string;
 }
+
+export interface EtransferRefill extends RefillBase {
+  method: RefillMethods.Etransfer;
+  message: string;
+}
+
+export interface CashRefill extends RefillBase {
+  method: RefillMethods.Cash;
+}
+
+export interface CardRefill extends RefillBase {
+  method: RefillMethods.Card;
+}
+
+export interface StripeRefill extends RefillBase {
+  method: RefillMethods.Stripe;
+}
+
+export type IRefill = EtransferRefill | CashRefill | CardRefill | StripeRefill;
+export type IRefillDocumentNew = Document & IRefill;
 
 export interface IRefillForm {
   account: IRefill['account'];
   method: IRefill['method'];
   amount: IRefill['amount'];
-}
-
-export interface IRefillDocument extends Document {
-  account: IRefill['account'];
-  method: IRefill['method'];
-  amount: IRefill['amount'];
-  date_created: IRefill['date_created'];
-  date_updated: IRefill['date_updated'];
-  status: IRefill['status'];
-  note: IRefill['note'];
 }
 
 export const isIRefill = typia.createEquals<IRefill>();
