@@ -16,35 +16,35 @@ export enum RefillStatus {
   Cancelled = "cancelled"
 }
 
-export interface RefillBase {
+export interface IRefill {
   id: string;
   account: string;
+  method: RefillMethods;
+  reference: string;
   amount: bigint | string;
   dateCreated: Date | string;
   dateUpdated: Date | string;
   status: RefillStatus;
   note?: string;
-  reference: string;
 }
 
-export interface EtransferRefill extends RefillBase {
-  method: RefillMethods.Etransfer;
-  message: string;
-}
+// export interface EtransferRefill extends RefillBase {
+//   method: RefillMethods.Etransfer;
+// }
 
-export interface CashRefill extends RefillBase {
-  method: RefillMethods.Cash;
-}
+// export interface CashRefill extends RefillBase {
+//   method: RefillMethods.Cash;
+// }
 
-export interface CardRefill extends RefillBase {
-  method: RefillMethods.Card;
-}
+// export interface CardRefill extends RefillBase {
+//   method: RefillMethods.Card;
+// }
 
-export interface StripeRefill extends RefillBase {
-  method: RefillMethods.Stripe;
-}
+// export interface StripeRefill extends RefillBase {
+//   method: RefillMethods.Stripe;
+// }
 
-export type IRefill = EtransferRefill | CashRefill | CardRefill | StripeRefill;
+// export type IRefill = EtransferRefill | CashRefill | CardRefill | StripeRefill;
 export type IRefillDocumentNew = Document & IRefill;
 
 export interface IRefillForm {

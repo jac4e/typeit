@@ -69,9 +69,10 @@ export function getValues<Type>(obj: Type) {
             obj.id,
             obj.account,
             obj.method,
+            obj.reference,
             obj.amount,
-            obj.date_created,
-            obj.date_updated,
+            obj.dateCreated,
+            obj.dateUpdated,
             obj.status,
             obj.note
         ] as (UnionValues<Type>)[];
