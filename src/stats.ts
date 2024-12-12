@@ -2,6 +2,15 @@ import { Roles } from "./account.js";
 import { RefillStatus } from "./refill.js";
 import { TransactionType } from "./transaction.js";
 
+export enum StatsDateRange {
+    All = 'all',
+    Day = '1d',
+    Week = '1w',
+    Month = '1m',
+    Quarter = '3m',
+    Year = '1y',
+}
+
 export interface IFinanceStats {
     totalCredit: number;
     revenue: number;
