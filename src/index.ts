@@ -73,6 +73,7 @@ export function getValues<Type>(obj: Type) {
             obj.method,
             obj.reference,
             obj.amount,
+            obj.cost,
             obj.dateCreated,
             obj.dateUpdated,
             obj.status,
