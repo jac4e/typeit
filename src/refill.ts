@@ -5,7 +5,8 @@ import typia, { tags } from "typia";
 export enum RefillMethods {
   Cash = "cash",
   Etransfer = "etransfer",
-  Card = "card",
+  CreditCard = "creditcard",
+  DebitCard = "debitcard",
   Stripe = "stripe"
 }
 
